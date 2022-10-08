@@ -22,7 +22,7 @@ public class TodoJsonPlaceHolderService {
     }
 
     public List<Todo> getTodos() {
-        return Objects.requireNonNull(restTemplate.getForObject(TODO_API_URL, TodoResponse.class)).getTodos();
+        return Objects.requireNonNull(restTemplate.getForObject(TODO_API_URL, List.class));
 
     }
 }

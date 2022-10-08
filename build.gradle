@@ -5,7 +5,7 @@ plugins {
 }
 
 ext {
-	set('springCloudVersion', "2021.0.4")
+	set('springCloudVersion', "2021.0.1")
 }
 
 dependencyManagement {
@@ -26,6 +26,12 @@ sourceCompatibility = "1.8"
 
 repositories {
 	mavenCentral()
+	/*maven {
+		url "https://repo.spring.io/release"
+	}
+	maven {
+		url "https://repository.jboss.org/maven2"
+	}*/
 }
 
 dependencies {
@@ -33,7 +39,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	//Analytics for spring apis.
 	implementation 'org.springframework.cloud:spring-cloud-starter-sleuth'
-	implementation 'org.springframework.cloud:spring-cloud-starter-actuator'
+	implementation 'org.springframework.boot:spring-boot-starter-actuator'
 
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
