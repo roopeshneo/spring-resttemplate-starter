@@ -4,6 +4,9 @@ import com.learn.spring.rest.restapi.model.Todo;
 import com.learn.spring.rest.restapi.service.TodoJsonPlaceHolderService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
@@ -26,9 +29,12 @@ public class InitialRestController {
     public String sayHello() {
         log.info("Received call on /init");
 
-        List<Todo> todoResp = todoJsonPlaceHolderService.getTodos();
+        List<Todo> todoResp = todoJsonPlaceHolderService.findAll();
+
+        Todo todoById = todoJsonPlaceHolderService.findById(1L);
 
         log.info("Received response from  todo-service: {}", todoResp);
-        return new String("Hello World: " + todoResp.get(0)); //TODO
+        return new String("Hello World: " + todoById); //TODO
     }
+
 }

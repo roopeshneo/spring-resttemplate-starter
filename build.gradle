@@ -18,6 +18,11 @@ configurations {
 	compileOnly {
 		extendsFrom annotationProcessor
 	}
+	/*all{
+		*//* only junit 5 should be used *//*
+		exclude group: 'junit', module: 'junit'
+		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+	}*/
 }
 
 group = 'com.learn.spring.rest'
@@ -40,11 +45,13 @@ dependencies {
 	//Analytics for spring apis.
 	implementation 'org.springframework.cloud:spring-cloud-starter-sleuth'
 	implementation 'org.springframework.boot:spring-boot-starter-actuator'
+    testImplementation 'junit:junit:4.13.1'
 
-	compileOnly 'org.projectlombok:lombok'
+    compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
+//	testImplementation("org.junit.jupiter:junit-jupiter:5.9.1")
 
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation ('org.springframework.boot:spring-boot-starter-test')
 }
 
 tasks.named('test') {
