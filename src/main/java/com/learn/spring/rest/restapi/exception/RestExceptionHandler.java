@@ -14,14 +14,19 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import java.util.Collections;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Order(Ordered.HIGHEST_PRECEDENCE)
 @ControllerAdvice
+@Slf4j
 public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
   @Override
@@ -30,6 +35,24 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
       WebRequest request) {
     String error = "Malformed JSON request";
     return buildResponseEntity(new ApiError(BAD_REQUEST, error, ex));
+  }
+
+  @ExceptionHandler(HttpClientErrorException.class)
+  public String handleXXException(HttpClientErrorException e) {
+    log.error("log HttpClientErrorException: ", e);
+    return "HttpClientErrorException_message";
+  }
+
+  @ExceptionHandler(HttpServerErrorException.class)
+  public String handleXXException(HttpServerErrorException e) {
+    log.error("log HttpServerErrorException: ", e);
+    return "HttpServerErrorException_message";
+  }
+  // catch unknown error
+  @ExceptionHandler(Exception.class)
+  public String handleException(Exception e) {
+    log.error("log unknown error", e);
+    return "unknown_error_message";
   }
 
   @ExceptionHandler(CustomException.class)
