@@ -1,11 +1,13 @@
 plugins {
 	id 'org.springframework.boot' version '2.7.4'
 	id 'io.spring.dependency-management' version '1.0.14.RELEASE'
+
 	id 'java'
 }
 
 ext {
 	set('springCloudVersion', "2021.0.1")
+	springBootVersion = '2.7.4'
 }
 
 dependencyManagement {
@@ -45,6 +47,11 @@ dependencies {
 	//Analytics for spring apis.
 	implementation 'org.springframework.cloud:spring-cloud-starter-sleuth'
 	implementation 'org.springframework.boot:spring-boot-starter-actuator'
+
+	implementation 'com.h2database:h2:1.4.200'
+	implementation("org.springframework.boot:spring-boot-starter-cache:${springBootVersion}")
+//	implementation("org.springframework.boot:spring-boot-starter-data-jpa:${springBootVersion}")
+
     testImplementation 'junit:junit:4.13.1'
 
     compileOnly 'org.projectlombok:lombok'

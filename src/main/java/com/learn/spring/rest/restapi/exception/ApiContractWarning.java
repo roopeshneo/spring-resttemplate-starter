@@ -7,13 +7,13 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @AllArgsConstructor
-public class ApiContractError implements IApiErrorBean {
+public class ApiContractWarning implements IApiWarningBean {
     private String object;
     private String field;
     private Object rejectedValue;
     private String message;
 
-    ApiContractError(String object, String message) {
+    ApiContractWarning(String object, String message) {
         this.object = object;
         this.message = message;
     }

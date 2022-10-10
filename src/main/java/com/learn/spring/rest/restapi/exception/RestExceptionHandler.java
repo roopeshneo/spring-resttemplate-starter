@@ -16,6 +16,12 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
 import static org.springframework.http.HttpStatus.NOT_FOUND;
 
+import com.learn.spring.rest.restapi.exception.CustomResponseErrorHandler.CustomException;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+
 @Order(Ordered.HIGHEST_PRECEDENCE)
 @ControllerAdvice
 public class RestExceptionHandler extends ResponseEntityExceptionHandler {
@@ -28,9 +34,17 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         return buildResponseEntity(new ApiError(BAD_REQUEST, error, ex));
     }
 
+    @ExceptionHandler(CustomException.class)
+    protected ResponseEntity<Object> handleCustom(
+            CustomException ex) {
+        ApiError apiError = new ApiError(NOT_FOUND);
+        apiError.setMessage(ex.getMessage());
+        return buildResponseEntity(apiError);
+    }
+
     @ExceptionHandler(EntityNotFoundException.class)
     protected ResponseEntity<Object> handleEntityNotFound(
-            EntityNotFoundException ex) {
+        EntityNotFoundException ex) {
         ApiError apiError = new ApiError(NOT_FOUND);
         apiError.setMessage(ex.getMessage());
         return buildResponseEntity(apiError);
@@ -50,6 +64,8 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
                 "could not be converted to type '%s'", ex.getName(), ex.getValue(),
                 ex.getRequiredType().getSimpleName()));
         apiError.setDebugMessage(ex.getMessage());
+        IApiWarningBean warningBean = new ApiContractWarning(request.getContextPath(), request.getContextPath());
+        apiError.setSubWarnings(Collections.singletonList(warningBean));
         return buildResponseEntity(apiError);
     }
     private ResponseEntity<Object> buildResponseEntity(ApiError apiError) {
