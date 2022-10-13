@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface ITodoJsonPlaceHolderService {
 
-    String TODO_API_URL = "https://jsonplaceholder.typicode.com/todoss";
+    String TODO_API_URL = "https://jsonplaceholder.typicode.com/todos";
 
     List<Todo> findAll();
     Todo findById(Long id);

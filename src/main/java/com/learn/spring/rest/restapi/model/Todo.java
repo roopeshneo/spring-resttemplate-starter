@@ -11,6 +11,8 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
+import lombok.AllArgsConstructor;
+
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
         "userId",
@@ -18,7 +20,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
         "title",
         "completed"
 })
-@Generated("jsonschema2pojo")
+@AllArgsConstructor
 public class Todo {
 
     @JsonProperty("userId")
@@ -40,8 +42,6 @@ public class Todo {
     private String title;
     @JsonProperty("completed")
     private Boolean completed;
-    @JsonIgnore
-    private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
     @JsonProperty("userId")
     public Integer getUserId() {
@@ -81,16 +81,6 @@ public class Todo {
     @JsonProperty("completed")
     public void setCompleted(Boolean completed) {
         this.completed = completed;
-    }
-
-    @JsonAnyGetter
-    public Map<String, Object> getAdditionalProperties() {
-        return this.additionalProperties;
-    }
-
-    @JsonAnySetter
-    public void setAdditionalProperty(String name, Object value) {
-        this.additionalProperties.put(name, value);
     }
 
 }

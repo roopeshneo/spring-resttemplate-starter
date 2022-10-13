@@ -38,11 +38,7 @@ class RestapiApplicationTests {
 
 //    @Test
     public void givenMockingIsDoneByMockito_whenGetIsCalled_shouldReturnMockedObject() {
-        Todo mockTodo = new Todo();
-        mockTodo.setId(1);
-        mockTodo.setTitle("delectus aut autem");
-        mockTodo.setCompleted(false);
-        mockTodo.setUserId(1);
+        Todo mockTodo = new Todo(1, 1, "delectus aut autem", false);
         Mockito
                 .when(restTemplate.getForEntity(
                         "https://jsonplaceholder.typicode.com/todos/1", Todo.class))
